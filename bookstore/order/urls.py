@@ -13,14 +13,13 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
+from django.conf.urls import url
+from order import views
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^user/', include('users.urls',namespace='user')),
-    url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^',include('books.urls',namespace='books')),
-    url(r'^cart/',include('cart.urls',namespace='cart')),#购物车模块
-    url(r'^order/',include('order.urls',namespace='order')),
+    url(r'^place/$',views.order_place,name='place'),
+    url(r'^commit/$',views.order_commit,name='commit'),#生成订单
+    url(r'^pay/$',views.order_pay,name='pay'),#订单支付
+    url(r'^check_pay/$',views.check_pay,name='check_pay'),#查询支付结果
+
 ]
